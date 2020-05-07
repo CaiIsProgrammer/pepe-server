@@ -1,0 +1,21 @@
+{
+  "name": "pepe-server",
+  "version": "1.0.0",
+  "description": "gamemaker server for pepe club",
+  "main": "index.js",
+  "dependencies": {
+    "performance-now": "*",
+    "binary-parser": "*",
+    "express": "^4.17.1",
+    "extend": "*",
+    "minimist": "*",
+    "mongoose": "*",
+    "underscore": "*",
+    "bcryptjs": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cai martin",
+  "license": "ISC"
+}

@@ -7,13 +7,12 @@ module.exports = function() {
   this.init = function() {
     //send connection handshake packet
     try {
+      let connectionString = "ANON : connected";
+      if (client.user.username) {
+        connectionString = `${client.user.username} : connected`;
+      }
       client.socket.write(packet.build(["HELLO", now().toString()]));
-      client.broadcastEveryone(
-        packet.build([
-          "MSG",
-          (client.user.username + " : connected").toString()
-        ])
-      );
+      client.broadcastEveryone(packet.build(["MSG", connectionString]));
     } catch (e) {
       console.log(e);
     }
@@ -49,6 +48,7 @@ module.exports = function() {
   this.error = function(err) {
     console.log("socket error" + err);
   };
+
   this.end = function() {
     try {
       client.broadcastEveryone(
@@ -67,7 +67,6 @@ module.exports = function() {
     console.log("socket closed");
   };
   this.data = function(data) {
-    console.log("socket data" + data.toString());
     packet.parse(client, data);
   };
 };

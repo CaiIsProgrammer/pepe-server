@@ -13,6 +13,7 @@ global.maps = new Map();
 (async function main() {
   // load init
   const initPath = path.join(__dirname, "init");
+  console.log(initPath);
   const initFiles = await fs.readdir(initPath);
 
   for (const name of initFiles) require(path.join(initPath, name));

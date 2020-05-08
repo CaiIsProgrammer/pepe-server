@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 require(path.join(__dirname, "resources/config.js"));
 require("./packet");
 
-const numCPUs = require("os").cpus().length;
+const numCPUs = 0;
 global.maps = new Map();
 
 (async function main() {

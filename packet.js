@@ -66,15 +66,16 @@ module.exports = packet = {
                 c.user.username
               ])
             );
+            let connectionString = "ANON : connected";
+            if (c.user) {
+              connectionString = `${c.user.username} : connected`;
+            }
+            c.broadcastRoom(packet.build(["MSG", connectionString]));
           } else {
             c.socket.write(packet.build(["LOGIN", "FALSE"]));
           }
         });
-        let connectionString = "ANON : connected";
-        if (c.user) {
-          connectionString = `${c.user.username} : connected`;
-        }
-        c.broadcastRoom(packet.build(["MSG", connectionString]));
+
         break;
       case "REGISTER":
         data = PacketModels.auth.parse(dataPacket);

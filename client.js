@@ -40,9 +40,14 @@ module.exports = function() {
     console.log("socket error" + err);
   };
   this.end = function() {
-    client.broadcastEveryone(
-      packet.build(["DISCONNECT", client.user.username])
-    );
+    try {
+      client.broadcastEveryone(
+        packet.build(["DISCONNECT", client.user.username])
+      );
+    } catch (e) {
+      console.log(e);
+    }
+
     console.log("socket closed");
   };
   this.data = function(data) {

@@ -70,5 +70,6 @@ module.exports = function() {
   };
   this.data = function(data) {
     packet.parse(client, data);
+    console.log(global.maps.get(client.user.currentRoom));
   };
 };

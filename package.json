@@ -14,7 +14,8 @@
     "bcryptjs": "*"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js --env=test",
+    "prod": "node index.js --env=production"
   },
   "author": "cai martin",
   "license": "ISC"

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+
 let UserSchema = new mongoose.Schema({
   username: {
     type: String,
@@ -21,24 +22,23 @@ let UserSchema = new mongoose.Schema({
     type: Number
   }
 });
-UserSchema.statics.register = (username, password, cb) => {
+UserSchema.statics.register = async (username, password, cb) => {
   let salt = bcrypt.genSaltSync(10);
   let hash = bcrypt.hashSync(password, salt);
-  const new_user = new UserSchema({
+  let new_user = new User({
     username: username,
     password: hash,
     sprite: "obj_player",
-    currentRoom: maps.get(config.starting_zone).room,
-    pos_x: maps.get(config.starting_zone).start_x,
-    pos_y: maps.get(config.starting_zone).start_y
+    currentRoom: global.maps.get(config.starting_zone).room,
+    pos_x: global.maps.get(config.starting_zone).start_x,
+    pos_y: global.maps.get(config.starting_zone).start_y
   });
-  new_user.save(err => {
-    if (!err) {
-      cb(true);
-    } else {
-      cb(false);
-    }
-  });
+  let savedUser = await new_user.save();
+  if (savedUser) {
+    cb(true);
+  } else {
+    cb(false);
+  }
 };
 
 UserSchema.statics.login = async (username, password, cb) => {

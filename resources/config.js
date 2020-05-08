@@ -29,7 +29,8 @@ const conf = {
   test: {
     ip: args.ip || "0.0.0.0",
     port: args.port || 8082,
-    database: "mongodb://127.0.0.1/pepe_test"
+    database:
+      "mongodb+srv://admin:YTjyx7zGdTouxL7S@cluster0-xgpxc.mongodb.net/test?retryWrites=true&w=majority"
   }
 };
 

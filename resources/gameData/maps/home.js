@@ -1,7 +1,7 @@
 exports.name = "Home";
 exports.room = "rm_map_home";
 
-exports.start_x = 320;
-exports.start_y = 320;
+exports.start_x = 200;
+exports.start_y = 100;
 
-exports.client = [];
+exports.clients = [];

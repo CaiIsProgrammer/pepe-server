@@ -3,11 +3,12 @@ const path = require("path");
 const fs = require("fs").promises; // or if you're node 14 check the new syntax
 const net = require("net");
 const cluster = require("cluster");
+const mongoose = require("mongoose");
 require(path.join(__dirname, "resources/config.js"));
 require("./packet");
 
-const numCPUs = 1; //require("os").cpus().length / 8;
-const maps = new Map();
+const numCPUs = require("os").cpus().length;
+global.maps = new Map();
 
 (async function main() {
   // load init
@@ -26,11 +27,24 @@ const maps = new Map();
   const mapFiles = await fs.readdir(mapsPath);
   for (const name of mapFiles) {
     const map = require(path.join(mapsPath, name));
-    maps.set(map.room, map);
+    global.maps.set(map.room, map);
   }
-  console.log(maps);
+  console.log(global.maps);
 })().catch(console.error);
 //CREATE CLUSTERS
+
+mongoose
+  .connect(config.database, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+  })
+  .then(() => console.log("Connected to MongoDB..."))
+  .catch(err => {
+    console.log("Could not connect to MongoDB...");
+    console.log(err);
+  });
 
 if (cluster.isMaster) {
   // Fork workers.

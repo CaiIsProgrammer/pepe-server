@@ -7,5 +7,14 @@ module.exports = PacketModels = {
     .skip(1)
     .string("command", stringOptions)
     .string("username", stringOptions)
-    .string("password", stringOptions)
+    .string("password", stringOptions),
+  pos: new Parser()
+    .skip(1)
+    .string("command", stringOptions)
+    .int32le("x", stringOptions)
+    .int32le("y", stringOptions),
+  msg: new Parser()
+    .skip(1)
+    .string("command", stringOptions)
+    .string("message", stringOptions)
 };

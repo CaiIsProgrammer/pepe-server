@@ -6,7 +6,14 @@ module.exports = function() {
   //ovject will be added at runtime
   this.init = function() {
     //send connection handshake packet
-    client.socket.write(packet.build(["HELLO", now().toString()]));
+    try {
+      client.socket.write(packet.build(["HELLO", now().toString()]));
+      client.socket.write(
+        packet.build(["MSG", client.user.username + " : connected"])
+      );
+    } catch (e) {
+      console.log(e);
+    }
     console.log("client init");
   };
   //client methods

@@ -33,7 +33,7 @@ UserSchema.statics.register = async (username, password, cb) => {
     pos_x: global.maps.get(config.starting_zone).start_x,
     pos_y: global.maps.get(config.starting_zone).start_y
   });
-  let savedUser = await new_user.save();
+  let savedUser = new_user.save();
   if (savedUser) {
     cb(true);
   } else {

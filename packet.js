@@ -91,7 +91,7 @@ module.exports = packet = {
         data = PacketModels.pos.parse(dataPacket);
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
-        c.user.save();
+
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));
         //console.log(data);
         break;

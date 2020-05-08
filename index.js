@@ -8,7 +8,7 @@ require(path.join(__dirname, "resources/config.js"));
 require("./packet");
 
 const numCPUs = 0;
-global.maps = {};
+global.maps = new Map();
 
 (async function main() {
   // load init

@@ -7,12 +7,7 @@ module.exports = function() {
   this.init = function() {
     //send connection handshake packet
     try {
-      let connectionString = "ANON : connected";
-      if (client.user.username) {
-        connectionString = `${client.user.username} : connected`;
-      }
       client.socket.write(packet.build(["HELLO", now().toString()]));
-      client.broadcastRoom(packet.build(["MSG", connectionString]));
     } catch (e) {
       console.log(e);
     }
@@ -59,9 +54,11 @@ module.exports = function() {
         ])
       );
       let mapToEdit = global.maps.get(client.user.currentRoom);
+      console.log(mapToEdit);
       let filtered = mapToEdit.clients.filter(otherClients => {
-        otherClients.user.username !== client.user.username;
+        return otherClients.user.username !== client.user.username;
       });
+      console.log(filtered);
       mapToEdit.clients = filtered;
       global.maps.set(client.user.currentRoom, mapToEdit);
       console.log(global.maps.get(client.user.currentRoom));

@@ -9,7 +9,10 @@ module.exports = function() {
     try {
       client.socket.write(packet.build(["HELLO", now().toString()]));
       client.broadcastEveryone(
-        packet.build(["MSG", client.user.username + " : connected"])
+        packet.build([
+          "MSG",
+          (client.user.username + " : connected").toString()
+        ])
       );
     } catch (e) {
       console.log(e);
@@ -50,6 +53,12 @@ module.exports = function() {
     try {
       client.broadcastEveryone(
         packet.build(["DISCONNECT", client.user.username])
+      );
+      client.broadcastRoom(
+        packet.build([
+          "MSG",
+          (client.user.username + " : disconnected").toString()
+        ])
       );
     } catch (e) {
       console.log(e);

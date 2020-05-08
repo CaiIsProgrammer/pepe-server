@@ -12,7 +12,7 @@ module.exports = function() {
         connectionString = `${client.user.username} : connected`;
       }
       client.socket.write(packet.build(["HELLO", now().toString()]));
-      client.broadcastEveryone(packet.build(["MSG", connectionString]));
+      client.broadcastRoom(packet.build(["MSG", connectionString]));
     } catch (e) {
       console.log(e);
     }
@@ -51,15 +51,20 @@ module.exports = function() {
 
   this.end = function() {
     try {
-      client.broadcastEveryone(
-        packet.build(["DISCONNECT", client.user.username])
-      );
+      client.broadcastRoom(packet.build(["DISCONNECT", client.user.username]));
       client.broadcastRoom(
         packet.build([
           "MSG",
           (client.user.username + " : disconnected").toString()
         ])
       );
+      let mapToEdit = global.maps.get(client.user.currentRoom);
+      let filtered = mapToEdit.clients.filter(otherClients => {
+        otherClients.user.username !== client.user.username;
+      });
+      mapToEdit.clients = filtered;
+      global.maps.set(client.user.currentRoom, mapToEdit);
+      console.log(global.maps.get(client.user.currentRoom));
     } catch (e) {
       console.log(e);
     }

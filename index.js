@@ -30,7 +30,6 @@ global.maps = new Map();
     const map = require(path.join(mapsPath, name));
     global.maps.set(map.room, map);
   }
-  console.log(global.maps);
 })().catch(console.error);
 //CREATE CLUSTERS
 

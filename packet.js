@@ -46,7 +46,7 @@ module.exports = packet = {
   },
   interpret: function(c, dataPacket) {
     const header = PacketModels.header.parse(dataPacket);
-    console.log("interpret: " + header.command);
+    //console.log("interpret: " + header.command);
     let data;
     switch (header.command.toUpperCase()) {
       case "LOGIN":
@@ -87,7 +87,7 @@ module.exports = packet = {
         c.user.pos_y = data.y;
         c.user.save();
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));
-        console.log(data);
+        //console.log(data);
         break;
       case "MSG":
         data = PacketModels.msg.parse(dataPacket);

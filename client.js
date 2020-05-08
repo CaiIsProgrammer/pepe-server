@@ -8,7 +8,7 @@ module.exports = function() {
     //send connection handshake packet
     try {
       client.socket.write(packet.build(["HELLO", now().toString()]));
-      client.socket.write(
+      client.broadcastEveryone(
         packet.build(["MSG", client.user.username + " : connected"])
       );
     } catch (e) {

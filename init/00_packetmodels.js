@@ -16,5 +16,9 @@ module.exports = PacketModels = {
   msg: new Parser()
     .skip(1)
     .string("command", stringOptions)
+    .string("message", stringOptions),
+  alive: new Parser()
+    .skip(1)
+    .string("command", stringOptions)
     .string("message", stringOptions)
 };

@@ -101,6 +101,7 @@ module.exports = packet = {
         c.broadcastEveryone(packet.build(["MSG", data.message]));
         break;
       case "ALIVE":
+        console.log("alive test");
         data = PacketModels.msg.parse(dataPacket);
         c.socket.write(packet.build(["ALIVE", "TRUE"]));
         break;

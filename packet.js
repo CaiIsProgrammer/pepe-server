@@ -97,6 +97,7 @@ module.exports = packet = {
         break;
       case "MSG":
         data = PacketModels.msg.parse(dataPacket);
+        console.log("MSG", data);
         c.broadcastEveryone(packet.build(["MSG", data.message]));
         break;
     }

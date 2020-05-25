@@ -15,29 +15,41 @@ module.exports = function() {
   };
   //client methods
   this.enterRoom = function(selectedRoom) {
-    global.maps.get(selectedRoom).clients.map(otherClient => {
-      otherClient.socket.write(
-        packet.build([
-          "ENTER",
-          client.user.username,
-          client.user.pos_x,
-          client.user.pos_y
-        ])
-      );
-    });
-    maps.get(selectedRoom).clients.push(client);
+    try {
+      global.maps.get(selectedRoom).clients.map(otherClient => {
+        otherClient.socket.write(
+          packet.build([
+            "ENTER",
+            client.user.username,
+            client.user.pos_x,
+            client.user.pos_y
+          ])
+        );
+      });
+      maps.get(selectedRoom).clients.push(client);
+    } catch (e) {
+      console.log(e);
+    }
   };
   this.broadcastRoom = function(packetData) {
-    global.maps.get(client.user.currentRoom).clients.map(otherClients => {
-      if (otherClients.user.username != client.user.username) {
-        otherClients.socket.write(packetData);
-      }
-    });
+    try {
+      global.maps.get(client.user.currentRoom).clients.map(otherClients => {
+        if (otherClients.user.username != client.user.username) {
+          otherClients.socket.write(packetData);
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
   this.broadcastEveryone = function(packetData) {
-    global.maps.get(client.user.currentRoom).clients.map(otherClients => {
-      otherClients.socket.write(packetData);
-    });
+    try {
+      global.maps.get(client.user.currentRoom).clients.map(otherClients => {
+        otherClients.socket.write(packetData);
+      });
+    } catch (e) {
+      console.log(e);
+    }
   };
   //socket stuff
   this.error = function(err) {
@@ -70,6 +82,10 @@ module.exports = function() {
     console.log("socket closed");
   };
   this.data = function(data) {
-    packet.parse(client, data);
+    try {
+      packet.parse(client, data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 };

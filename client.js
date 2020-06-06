@@ -59,8 +59,10 @@ module.exports = function() {
   this.end = function() {
     try {
       client.user.save();
-      client.broadcastRoom(packet.build(["DISCONNECT", client.user.username]));
-      client.broadcastRoom(
+      client.broadcastEveryone(
+        packet.build(["DISCONNECT", client.user.username])
+      );
+      client.broadcastEveryone(
         packet.build([
           "MSG",
           (client.user.username + " : disconnected").toString()

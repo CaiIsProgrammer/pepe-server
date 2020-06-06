@@ -77,6 +77,7 @@ module.exports = packet = {
         });
 
         break;
+      case "RECONNECT":
       case "REGISTER":
         data = PacketModels.auth.parse(dataPacket);
         User.register(data.username, data.password, res => {

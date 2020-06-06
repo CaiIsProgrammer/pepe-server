@@ -56,9 +56,9 @@ module.exports = function() {
     console.log("socket error" + err);
   };
 
-  this.end = function() {
+  this.end = async function() {
     try {
-      client.user.save();
+      await client.user.save();
       client.broadcastEveryone(
         packet.build(["DISCONNECT", client.user.username])
       );
@@ -68,9 +68,9 @@ module.exports = function() {
           (client.user.username + " : disconnected").toString()
         ])
       );
-      let mapToEdit = global.maps.get(client.user.currentRoom);
+      let mapToEdit = await global.maps.get(client.user.currentRoom);
       console.log(mapToEdit);
-      let filtered = mapToEdit.clients.filter(otherClients => {
+      let filtered = await mapToEdit.clients.filter(otherClients => {
         return otherClients.user.username !== client.user.username;
       });
       console.log(filtered);

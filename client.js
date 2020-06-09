@@ -56,6 +56,23 @@ module.exports = function() {
       console.log(e);
     }
   };
+  this.setTagged = function(username) {
+    try {
+      return global.maps.get(client.user.currentRoom).clients.map(Clients => {
+        console.log(Clients);
+        if (Clients.playingTag === "TRUE") {
+          if (Clients.user.username === username) {
+            Clients.tagBoss = true;
+            return Clients.user.username;
+          } else {
+            Clients.tagBoss = false;
+          }
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   this.broadcastEveryone = function(packetData) {
     try {
       global.maps.get(client.user.currentRoom).clients.map(otherClients => {

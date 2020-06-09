@@ -107,20 +107,22 @@ module.exports = packet = {
         c.socket.write(packet.build(["ALIVE", "TRUE"]));
         break;
       case "GETTAG":
-        if (c.user.playingTag) {
-          if (c.user.playingTag === "FALSE") {
-            c.user.playingTag = "TRUE";
-          } else if (c.user.playingTag === "TRUE") {
-            c.user.playingTag = "FALSE";
+        if (c.playingTag) {
+          if (c.playingTag === "FALSE") {
+            c.playingTag = "TRUE";
+          } else if (c.playingTag === "TRUE") {
+            c.playingTag = "FALSE";
           } else {
-            c.user.playingTag = "TRUE";
+            c.playingTag = "TRUE";
           }
         } else {
-          c.user.playingTag = "TRUE";
+          c.playingTag = "TRUE";
         }
+        console.log(c);
         let username = c.getTagged();
         if (!username) {
           username = "";
+          c.tagBoss = true;
         }
         c.broadcastEveryone(packet.build(["TAGGED", username]));
         break;

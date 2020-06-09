@@ -123,8 +123,9 @@ module.exports = packet = {
         if (!username) {
           username = "";
           c.tagBoss = true;
+        } else if (username.user) {
+          username = username.user.username;
         }
-
         console.log("username 128 ", username);
         console.log("c.user 129 ", c.user);
         c.broadcastEveryone(packet.build(["TAGGED", username]));

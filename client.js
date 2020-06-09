@@ -109,6 +109,7 @@ module.exports = function() {
   };
   //socket stuff
   this.error = function(err) {
+    client.end();
     console.log("socket error" + err);
   };
 

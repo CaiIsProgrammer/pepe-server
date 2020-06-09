@@ -16,7 +16,7 @@ module.exports = function() {
   //client methods
   this.enterRoom = function(selectedRoom) {
     try {
-      return global.maps.get(selectedRoom).clients.map(otherClient => {
+      global.maps.get(selectedRoom).clients.map(otherClient => {
         otherClient.socket.write(
           packet.build([
             "ENTER",
@@ -25,9 +25,11 @@ module.exports = function() {
             client.user.pos_y
           ])
         );
+        return true;
       });
-      maps.get(selectedRoom).clients.push(client);
+      return maps.get(selectedRoom).clients.push(client);
     } catch (e) {
+      return e;
       console.log(e);
     }
   };
@@ -39,8 +41,10 @@ module.exports = function() {
           if (otherClients.user.username != client.user.username) {
             otherClients.socket.write(packetData);
           }
+          return true;
         });
     } catch (e) {
+      return e;
       console.log(e);
     }
   };
@@ -52,8 +56,10 @@ module.exports = function() {
             return Clients.user.username;
           }
         }
+        return true;
       });
     } catch (e) {
+      return e;
       console.log(e);
     }
   };
@@ -69,8 +75,10 @@ module.exports = function() {
             Clients.tagBoss = false;
           }
         }
+        return true;
       });
     } catch (e) {
+      return e;
       console.log(e);
     }
   };
@@ -80,8 +88,10 @@ module.exports = function() {
         .get(client.user.currentRoom)
         .clients.map(otherClients => {
           otherClients.socket.write(packetData);
+          return true;
         });
     } catch (e) {
+      return e;
       console.log(e);
     }
   };
@@ -90,8 +100,10 @@ module.exports = function() {
       return global.maps.get(client.user.currentRoom).clients.map(clients => {
         clients.playingTag = "FALSE";
         clients.tagBoss = false;
+        return true;
       });
     } catch (e) {
+      return e;
       console.log();
     }
   };

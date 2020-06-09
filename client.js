@@ -45,7 +45,6 @@ module.exports = function() {
   this.getTagged = function() {
     try {
       return global.maps.get(client.user.currentRoom).clients.find(Clients => {
-        console.log(Clients);
         if (Clients.playingTag === "TRUE") {
           if (Clients.tagBoss) {
             return Clients.user.username;
@@ -59,10 +58,10 @@ module.exports = function() {
   this.setTagged = function(username) {
     try {
       return global.maps.get(client.user.currentRoom).clients.map(Clients => {
-        console.log(Clients);
         if (Clients.playingTag === "TRUE") {
           if (Clients.user.username === username) {
             Clients.tagBoss = true;
+            console.log(Clients.user);
             return Clients.user.username;
           } else {
             Clients.tagBoss = false;

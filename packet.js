@@ -124,10 +124,13 @@ module.exports = packet = {
           username = "";
           c.tagBoss = true;
         }
+        console.log(username);
+        console.log(c);
         c.broadcastEveryone(packet.build(["TAGGED", username]));
         break;
       case "UPDATETAG":
         data = PacketModels.msg.parse(dataPacket);
+        c.setTagged(data.username);
         c.broadcastEveryone(packet.build(["TAGGED", data.username]));
         break;
     }

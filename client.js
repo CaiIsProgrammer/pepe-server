@@ -124,16 +124,13 @@ module.exports = function() {
         ])
       );
       let mapToEdit = global.maps.get(client.user.currentRoom);
-      console.log(mapToEdit);
       let filtered = mapToEdit.clients.filter(otherClients => {
         return otherClients.user.username !== client.user.username;
       });
-      console.log(filtered);
       mapToEdit.clients = filtered;
       global.maps.set(client.user.currentRoom, mapToEdit);
-      console.log(global.maps.get(client.user.currentRoom));
     } catch (e) {
-      console.log(e);
+      console.log(e.message);
     }
     console.log("socket closed");
   };

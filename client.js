@@ -114,20 +114,18 @@ module.exports = function() {
 
   this.end = async function() {
     try {
-      await client.endTag();
       await client.user.save();
-      await client.broadcastRoom(
-        packet.build(["DISCONNECT", client.user.username])
-      );
-      await client.broadcastRoom(
+      client.endTag();
+      client.broadcastRoom(packet.build(["DISCONNECT", client.user.username]));
+      client.broadcastRoom(
         packet.build([
           "MSG",
           (client.user.username + " : disconnected").toString()
         ])
       );
-      let mapToEdit = await global.maps.get(client.user.currentRoom);
+      let mapToEdit = global.maps.get(client.user.currentRoom);
       console.log(mapToEdit);
-      let filtered = await mapToEdit.clients.filter(otherClients => {
+      let filtered = mapToEdit.clients.filter(otherClients => {
         return otherClients.user.username !== client.user.username;
       });
       console.log(filtered);

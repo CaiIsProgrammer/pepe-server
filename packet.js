@@ -107,18 +107,7 @@ module.exports = packet = {
         c.socket.write(packet.build(["ALIVE", "TRUE"]));
         break;
       case "GETTAG":
-        if (c.playingTag) {
-          if (c.playingTag === "FALSE") {
-            c.playingTag = "TRUE";
-          } else if (c.playingTag === "TRUE") {
-            c.playingTag = "FALSE";
-          } else {
-            c.playingTag = "TRUE";
-          }
-        } else {
-          c.playingTag = "TRUE";
-        }
-        console.log(c);
+        c.playingTag = "TRUE";
         let username = c.getTagged();
         if (!username) {
           username = c.user.username;

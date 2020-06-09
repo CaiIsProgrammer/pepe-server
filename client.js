@@ -16,7 +16,7 @@ module.exports = function() {
   //client methods
   this.enterRoom = function(selectedRoom) {
     try {
-      global.maps.get(selectedRoom).clients.map(otherClient => {
+      return global.maps.get(selectedRoom).clients.map(otherClient => {
         otherClient.socket.write(
           packet.build([
             "ENTER",
@@ -33,11 +33,13 @@ module.exports = function() {
   };
   this.broadcastRoom = function(packetData) {
     try {
-      global.maps.get(client.user.currentRoom).clients.map(otherClients => {
-        if (otherClients.user.username != client.user.username) {
-          otherClients.socket.write(packetData);
-        }
-      });
+      return global.maps
+        .get(client.user.currentRoom)
+        .clients.map(otherClients => {
+          if (otherClients.user.username != client.user.username) {
+            otherClients.socket.write(packetData);
+          }
+        });
     } catch (e) {
       console.log(e);
     }
@@ -74,16 +76,18 @@ module.exports = function() {
   };
   this.broadcastEveryone = function(packetData) {
     try {
-      global.maps.get(client.user.currentRoom).clients.map(otherClients => {
-        otherClients.socket.write(packetData);
-      });
+      return global.maps
+        .get(client.user.currentRoom)
+        .clients.map(otherClients => {
+          otherClients.socket.write(packetData);
+        });
     } catch (e) {
       console.log(e);
     }
   };
   this.endTag = function() {
     try {
-      global.maps.get(client.user.currentRoom).clients.map(clients => {
+      return global.maps.get(client.user.currentRoom).clients.map(clients => {
         clients.playingTag = "FALSE";
         clients.tagBoss = false;
       });
@@ -98,12 +102,12 @@ module.exports = function() {
 
   this.end = async function() {
     try {
-      client.endTag();
+      await client.endTag();
       await client.user.save();
-      client.broadcastEveryone(
+      await client.broadcastRoom(
         packet.build(["DISCONNECT", client.user.username])
       );
-      client.broadcastEveryone(
+      await client.broadcastRoom(
         packet.build([
           "MSG",
           (client.user.username + " : disconnected").toString()

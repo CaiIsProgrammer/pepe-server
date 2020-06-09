@@ -81,6 +81,16 @@ module.exports = function() {
       console.log(e);
     }
   };
+  this.endTag = function() {
+    try {
+      global.maps.get(client.user.currentRoom).clients.map(clients => {
+        clients.playingTag = "FALSE";
+        clients.tagBoss = false;
+      });
+    } catch (e) {
+      console.log();
+    }
+  };
   //socket stuff
   this.error = function(err) {
     console.log("socket error" + err);
@@ -88,6 +98,7 @@ module.exports = function() {
 
   this.end = async function() {
     try {
+      client.endTag();
       await client.user.save();
       client.broadcastEveryone(
         packet.build(["DISCONNECT", client.user.username])

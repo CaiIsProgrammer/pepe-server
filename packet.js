@@ -121,7 +121,7 @@ module.exports = packet = {
         console.log(c);
         let username = c.getTagged();
         if (!username) {
-          username = "";
+          username = c.user.username;
           c.tagBoss = true;
         } else if (username.user) {
           username = username.user.username;

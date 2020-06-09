@@ -114,7 +114,7 @@ module.exports = function() {
 
   this.end = async function() {
     try {
-      await client.user.save();
+      client.user.save();
       client.endTag();
       client.broadcastRoom(packet.build(["DISCONNECT", client.user.username]));
       client.broadcastRoom(
@@ -135,7 +135,6 @@ module.exports = function() {
     } catch (e) {
       console.log(e);
     }
-
     console.log("socket closed");
   };
   this.data = function(data) {

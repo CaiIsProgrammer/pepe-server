@@ -106,6 +106,28 @@ module.exports = packet = {
         data = PacketModels.msg.parse(dataPacket);
         c.socket.write(packet.build(["ALIVE", "TRUE"]));
         break;
+      case "GETTAG":
+        if (c.user.playingTag) {
+          if (c.user.playingTag === "FALSE") {
+            c.user.playingTag = "TRUE";
+          } else if (c.user.playingTag === "TRUE") {
+            c.user.playingTag = "FALSE";
+          } else {
+            c.user.playingTag = "TRUE";
+          }
+        } else {
+          c.user.playingTag = "TRUE";
+        }
+        let username = c.getTagged();
+        if (!username) {
+          username = "";
+        }
+        c.broadcastEveryone(packet.build(["TAGGED", username]));
+        break;
+      case "UPDATETAG":
+        data = PacketModels.msg.parse(dataPacket);
+        c.broadcastEveryone(packet.build(["TAGGED", data.username]));
+        break;
     }
   }
 };

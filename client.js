@@ -42,6 +42,20 @@ module.exports = function() {
       console.log(e);
     }
   };
+  this.getTagged = function() {
+    try {
+      return global.maps.get(client.user.currentRoom).clients.find(Clients => {
+        console.log(Clients);
+        if (Clients.playingTag === "TRUE") {
+          if (Clients.tagBoss) {
+            return Clients.user.username;
+          }
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
   this.broadcastEveryone = function(packetData) {
     try {
       global.maps.get(client.user.currentRoom).clients.map(otherClients => {

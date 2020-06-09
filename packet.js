@@ -125,7 +125,7 @@ module.exports = packet = {
           c.tagBoss = true;
         }
         console.log(username);
-        console.log(c);
+        console.log(c.user);
         c.broadcastEveryone(packet.build(["TAGGED", username]));
         break;
       case "UPDATETAG":

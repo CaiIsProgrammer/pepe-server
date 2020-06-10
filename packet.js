@@ -124,8 +124,8 @@ module.exports = packet = {
         c.broadcastEveryone(packet.build(["TAGGED", data.username]));
         break;
       case "TAGIMMUNE":
-        console.log("tag immune");
         data = PacketModels.msg.parse(dataPacket);
+        console.log("tag immune", data.username);
         await c.setTaggedImmune(data.username);
         c.broadcastRoom(packet.build(["TAGIMMUNE", data.username]));
         break;

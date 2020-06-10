@@ -25,5 +25,9 @@ module.exports = PacketModels = {
     .skip(1)
     .string("command", stringOptions)
     .string("username", stringOptions),
+  tagimmune: new Parser()
+    .skip(1)
+    .string("command", stringOptions)
+    .string("username", stringOptions),
   gettag: new Parser().skip(1).string("command", stringOptions)
 };

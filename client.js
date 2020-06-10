@@ -82,6 +82,25 @@ module.exports = function() {
       console.log(e);
     }
   };
+  this.setTaggedImmune = function(username) {
+    try {
+      return global.maps.get(client.user.currentRoom).clients.map(Clients => {
+        if (Clients.playingTag === "TRUE") {
+          if (Clients.user.username === username) {
+            if (Clients.tagImmune) {
+              Clients.tagImmune = !Clients.tagImmune;
+            } else {
+              Clients.tagImmune = true;
+            }
+          }
+        }
+        return true;
+      });
+    } catch (e) {
+      return e;
+      console.log(e);
+    }
+  };
   this.broadcastEveryone = function(packetData) {
     try {
       return global.maps

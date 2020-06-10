@@ -123,6 +123,11 @@ module.exports = packet = {
         await c.setTagged(data.username);
         c.broadcastEveryone(packet.build(["TAGGED", data.username]));
         break;
+      case "TAGIMMUNE":
+        data = PacketModels.msg.parse(dataPacket);
+        await c.setTaggedImmune(data.username);
+        c.broadcastRoom(packet.build(["TAGIMMUNE", data.username]));
+        break;
     }
   }
 };

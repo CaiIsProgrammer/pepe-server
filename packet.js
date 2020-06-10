@@ -44,7 +44,7 @@ module.exports = packet = {
       idx += packetSize;
     }
   },
-  interpret: function(c, dataPacket) {
+  interpret: async function(c, dataPacket) {
     const header = PacketModels.header.parse(dataPacket);
     //console.log("interpret: " + header.command);
     let data;
@@ -107,7 +107,7 @@ module.exports = packet = {
         break;
       case "GETTAG":
         c.playingTag = "TRUE";
-        let username = c.getTagged();
+        let username = await c.getTagged();
         if (!username) {
           username = c.user.username;
           c.tagBoss = true;
@@ -120,7 +120,7 @@ module.exports = packet = {
         break;
       case "UPDATETAG":
         data = PacketModels.msg.parse(dataPacket);
-        c.setTagged(data.username);
+        await c.setTagged(data.username);
         c.broadcastEveryone(packet.build(["TAGGED", data.username]));
         break;
     }

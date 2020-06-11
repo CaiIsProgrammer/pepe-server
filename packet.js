@@ -92,7 +92,7 @@ module.exports = packet = {
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
         let tagboss = await c.getTagged();
-        console.log("tagBoss", tagboss);
+        console.log("tagBoss", tagBoss.user.username, tagboss.tagBoss);
         if (c.tagBoss) {
           let collisionData = await checkCollision(c);
           if (collisionData.length) {
@@ -126,8 +126,6 @@ module.exports = packet = {
         } else if (username.user) {
           username = username.user.username;
         }
-        console.log("username 128 ", username);
-        console.log("c.user 129 ", c.user);
         c.broadcastEveryone(packet.build(["TAGGED", username]));
         break;
 

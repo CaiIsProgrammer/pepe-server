@@ -56,7 +56,6 @@ module.exports = function() {
             return Clients.user.username;
           }
         }
-        return true;
       });
     } catch (e) {
       return e;

@@ -84,12 +84,12 @@ module.exports = function() {
       return global.maps.get(client.user.currentRoom).clients.map(Clients => {
         if (Clients.playingTag === "TRUE") {
           if (Clients.user.username === username) {
-            console.log("immune status", username, Clients.tagImmune);
             if (Clients.tagImmune) {
               Clients.tagImmune = false;
             } else {
               Clients.tagImmune = true;
             }
+            console.log("immune status", username, Clients.tagImmune);
           }
         }
         return true;

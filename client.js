@@ -67,7 +67,7 @@ module.exports = function() {
         if (Clients.playingTag === "TRUE") {
           if (Clients.user.username === username) {
             Clients.tagBoss = true;
-            console.log(Clients.user);
+            //console.log(Clients.user);
             return Clients.user.username;
           } else {
             Clients.tagBoss = false;

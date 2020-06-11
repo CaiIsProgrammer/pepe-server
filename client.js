@@ -59,7 +59,6 @@ module.exports = function() {
       });
     } catch (e) {
       return e;
-      console.log(e);
     }
   };
   this.setTagged = function(username) {
@@ -78,7 +77,6 @@ module.exports = function() {
       });
     } catch (e) {
       return e;
-      console.log(e);
     }
   };
   this.setTaggedImmune = function(username) {

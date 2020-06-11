@@ -101,7 +101,6 @@ module.exports = packet = {
           }
         }
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));
-        //console.log(data);
         break;
 
       case "MSG":

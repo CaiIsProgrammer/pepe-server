@@ -12,8 +12,8 @@ const checkCollision = client => {
       if (clients[i].playingTag === "TRUE") {
         if (!clients[i].tagImmune) {
           let rect2 = {
-            x: clients[i].pos_x,
-            y: clients[i].pos_y,
+            x: clients[i].user.pos_x,
+            y: clients[i].user.pos_y,
             width: 16,
             height: 16
           };

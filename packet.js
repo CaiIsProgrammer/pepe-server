@@ -130,7 +130,7 @@ module.exports = packet = {
         } else if (username.user) {
           username = username.user.username;
         }
-        c.broadcastEveryone(packet.build(["TAGGED", username, ""]));
+        c.broadcastEveryone(packet.build(["TAGGED", username, "GETTAGGED"]));
         break;
 
       case "TAGIMMUNE":

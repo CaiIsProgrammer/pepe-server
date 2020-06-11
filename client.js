@@ -123,7 +123,6 @@ module.exports = function() {
       });
     } catch (e) {
       return e;
-      console.log();
     }
   };
   //socket stuff

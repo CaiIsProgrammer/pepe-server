@@ -1,5 +1,5 @@
 const zeroBuffer = new Buffer.from("00", "hex");
-
+const { checkCollision } = require("./resources/gameData/gameScripts/tag.js");
 module.exports = packet = {
   //write a packet to be sent to a client
   build: function(params) {
@@ -91,7 +91,14 @@ module.exports = packet = {
         data = PacketModels.pos.parse(dataPacket);
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
-
+        let collisionData = await checkCollision(c);
+        if (c.tagBoss) {
+          if (checkCollision) {
+            await c.setTagged(collisionData);
+            await c.setTaggedImmune(collisionData);
+            c.broadcastEveryone(packet.build(["TAGGED", collisionData]));
+          }
+        }
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));
         //console.log(data);
         break;
@@ -118,11 +125,7 @@ module.exports = packet = {
         console.log("c.user 129 ", c.user);
         c.broadcastEveryone(packet.build(["TAGGED", username]));
         break;
-      case "UPDATETAG":
-        data = PacketModels.msg.parse(dataPacket);
-        await c.setTagged(data.username);
-        c.broadcastEveryone(packet.build(["TAGGED", data.username]));
-        break;
+
       case "TAGIMMUNE":
         console.log("tag immune", c.user.username);
         await c.setTaggedImmune(c.user.username);

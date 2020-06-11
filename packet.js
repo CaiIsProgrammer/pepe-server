@@ -131,7 +131,6 @@ module.exports = packet = {
         break;
 
       case "TAGIMMUNE":
-        console.log("tag immune", c.user.username);
         await c.setTaggedImmune(c.user.username);
         c.broadcastRoom(packet.build(["TAGIMMUNE", c.user.username]));
         break;

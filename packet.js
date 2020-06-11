@@ -99,7 +99,10 @@ module.exports = packet = {
               console.log("TAGGED PLAYER", collisionData);
               await c.setTagged(collisionData);
               await c.setTaggedImmune(collisionData);
-              c.broadcastEveryone(packet.build(["TAGGED", collisionData]));
+              await c.setTaggedImmune(c.user.username);
+              c.broadcastEveryone(
+                packet.build(["TAGGED", collisionData, c.user.username])
+              );
             }
           }
         }
@@ -127,7 +130,7 @@ module.exports = packet = {
         } else if (username.user) {
           username = username.user.username;
         }
-        c.broadcastEveryone(packet.build(["TAGGED", username]));
+        c.broadcastEveryone(packet.build(["TAGGED", username, ""]));
         break;
 
       case "TAGIMMUNE":

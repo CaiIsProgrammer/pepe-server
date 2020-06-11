@@ -93,12 +93,14 @@ module.exports = packet = {
         c.user.pos_y = data.y;
         let tagboss = await c.getTagged();
         if (c.tagBoss) {
-          let collisionData = await checkCollision(c);
-          if (collisionData.length) {
-            console.log("TAGGED PLAYER", collisionData);
-            await c.setTagged(collisionData);
-            await c.setTaggedImmune(collisionData);
-            c.broadcastEveryone(packet.build(["TAGGED", collisionData]));
+          if (c.tagImmune) {
+            let collisionData = await checkCollision(c);
+            if (collisionData.length) {
+              console.log("TAGGED PLAYER", collisionData);
+              await c.setTagged(collisionData);
+              await c.setTaggedImmune(collisionData);
+              c.broadcastEveryone(packet.build(["TAGGED", collisionData]));
+            }
           }
         }
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));

@@ -92,7 +92,7 @@ module.exports = packet = {
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
         let tagboss = await c.getTagged();
-        console.log(tagBoss);
+        console.log(tagboss);
         if (c.tagBoss) {
           let collisionData = await checkCollision(c);
           if (collisionData.length) {

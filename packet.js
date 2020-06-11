@@ -91,8 +91,8 @@ module.exports = packet = {
         data = PacketModels.pos.parse(dataPacket);
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
-
-        console.log("is", c.user.username, "tagBoss", c.tagBoss);
+        let username = await c.getTagged();
+        console.log("tagBoss", username);
         if (c.tagBoss) {
           let collisionData = await checkCollision(c);
           if (collisionData.length) {

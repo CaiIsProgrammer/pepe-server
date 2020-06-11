@@ -93,7 +93,7 @@ module.exports = packet = {
         c.user.pos_y = data.y;
         if (c.tagBoss) {
           let collisionData = await checkCollision(c);
-          if (collisionData) {
+          if (collisionData.length) {
             console.log("TAGGED PLAYER", collisionData);
             await c.setTagged(collisionData);
             await c.setTaggedImmune(collisionData);

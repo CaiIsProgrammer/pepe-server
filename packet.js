@@ -93,7 +93,8 @@ module.exports = packet = {
         c.user.pos_y = data.y;
         let collisionData = await checkCollision(c);
         if (c.tagBoss) {
-          if (checkCollision) {
+          if (collisionData) {
+            console.log(collisionData);
             await c.setTagged(collisionData);
             await c.setTaggedImmune(collisionData);
             c.broadcastEveryone(packet.build(["TAGGED", collisionData]));
@@ -102,16 +103,19 @@ module.exports = packet = {
         c.broadcastRoom(packet.build(["POS", c.user.username, data.x, data.y]));
         //console.log(data);
         break;
+
       case "MSG":
         data = PacketModels.msg.parse(dataPacket);
         console.log("MSG", data);
         c.broadcastEveryone(packet.build(["MSG", data.message]));
         break;
+
       case "ALIVE":
         console.log("alive test");
         data = PacketModels.msg.parse(dataPacket);
         c.socket.write(packet.build(["ALIVE", "TRUE"]));
         break;
+
       case "GETTAG":
         c.playingTag = "TRUE";
         let username = await c.getTagged();

@@ -91,10 +91,10 @@ module.exports = packet = {
         data = PacketModels.pos.parse(dataPacket);
         c.user.pos_x = data.x;
         c.user.pos_y = data.y;
-        let collisionData = await checkCollision(c);
-        console.log("collisionData", collisionData);
         if (c.tagBoss) {
+          let collisionData = await checkCollision(c);
           if (collisionData) {
+            console.log("TAGGED PLAYER", collisionData);
             await c.setTagged(collisionData);
             await c.setTaggedImmune(collisionData);
             c.broadcastEveryone(packet.build(["TAGGED", collisionData]));

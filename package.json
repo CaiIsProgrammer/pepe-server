@@ -6,7 +6,7 @@
   "dependencies": {
     "performance-now": "*",
     "binary-parser": "*",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "extend": "*",
     "minimist": "*",
     "mongoose": "*",

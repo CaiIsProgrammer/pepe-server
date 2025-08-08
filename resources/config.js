@@ -30,7 +30,7 @@ const conf = {
     ip: args.ip || "0.0.0.0",
     port: args.port || 8082,
     database:
-      "mongodb+srv://admin:YTjyx7zGdTouxL7S@cluster0-xgpxc.mongodb.net/test?retryWrites=true&w=majority"
+      "mongodb+srv://***:******0-xgpxc.mongodb.net/test?retryWrites=true&w=majority"
   }
 };
 
